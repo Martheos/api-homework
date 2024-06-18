@@ -1,20 +1,25 @@
 package org.example
 
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.runBlocking
+import kotlinx.serialization.Serializable
 import java.util.*
 import kotlin.concurrent.scheduleAtFixedRate
 import kotlin.random.Random
 
 
+@Serializable
 data class Measurement(
     val ts: Long,
     val value: Double
 )
-class Sensor {
+class Sensor(private val chan: Channel<Measurement>) {
     private val timer = Timer()
-
     init {
         timer.scheduleAtFixedRate(0, 60000) {
-            takeMeasurement()
+            runBlocking {
+                chan.send(takeMeasurement())
+            }
         }
     }
 
@@ -23,4 +28,4 @@ class Sensor {
         println(ms)
         return ms
     }
-    }
+}
