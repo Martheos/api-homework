@@ -10,7 +10,6 @@ import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import kotlinx.serialization.*
-import kotlinx.serialization.json.Json
 
 @Serializable
 data class StationRequest(val id: Int, val address: String)
@@ -61,6 +60,12 @@ fun Application.configureRouting() {
                     }
                 }
             }
+            /*
+            expects json in form of
+            {id: Int, optional start (millis), optional end(millis)}i
+            returns list of
+            {ts (millis), address: String}
+             */
             route("/measurements") {
                 get {
                     val query = call.receive<MeasurementQuery>()

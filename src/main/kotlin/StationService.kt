@@ -5,29 +5,46 @@ object StationService {
     private val stations = mutableMapOf<Int, MeasuringStation>()
     private val measurements = mutableMapOf<Int, MutableList<Measurement>>()
 
-    fun addStation(station: MeasuringStation): Boolean{
+    //create a new station
+    fun addStation(station: MeasuringStation): Boolean {
         if (!stations.contains(station.id)) {
             stations[station.id] = station
             return true
-        } else{
+        } else {
             return false
         }
     }
 
-    fun getStation(stationId: Int): MeasuringStation? {
-        return stations[stationId]
+    /*
+    return station ObjectDto if object exists
+    {
+    id: Int
+    address: String
+    sensorCount: Int
+    }
+     */
+
+    fun getStation(stationId: Int): MeasuringStationDto? {
+        return stations[stationId]?.toDTO()
     }
 
 
-
-    fun addMeasurement(stationId: Int, measurement: Measurement){
+    /*
+    methode for Stations to commit their measurements
+    stored in map<stationId, List<Measurement> for ease of access
+     */
+    fun addMeasurement(stationId: Int, measurement: Measurement) {
         if (measurements.contains(stationId))
             measurements[stationId]?.add(measurement)
-
         else
             measurements[stationId] = mutableListOf(measurement)
     }
 
+    /*
+    returns list of measurements of a provided Station
+    can utilize a window
+    compares the windowing values with the timestamps to filter
+     */
     fun getMeasurements(stationId: Int, start: Long?, end: Long?): List<Measurement>{
         return when{
             start != null && end != null-> {
@@ -47,6 +64,9 @@ object StationService {
     }
 
 
+    /*
+    calls add sensor function of station
+     */
     fun addSensorToStation(stationId: Int): Boolean? {
         return stations[stationId]?.addSensor()
     }

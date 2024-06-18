@@ -15,6 +15,13 @@ data class Measurement(
 )
 class Sensor(private val chan: Channel<Measurement>) {
     private val timer = Timer()
+
+    /*
+    constructor with a timer that pipes a new measurement
+    from takeMeasurement() into the channel, provided by the station
+
+    timer activates every 60 seconds and runs asynchronously
+     */
     init {
         timer.scheduleAtFixedRate(0, 60000) {
             runBlocking {
@@ -23,6 +30,11 @@ class Sensor(private val chan: Channel<Measurement>) {
         }
     }
 
+    /*
+    function that takes current time in millis
+     and a random double between 0 and 100 to
+     create a measurement and returns it
+     */
     private fun takeMeasurement(): Measurement {
         val measure = Measurement(System.currentTimeMillis(), Random.nextDouble(0.0, 100.0))
         println(measure)
