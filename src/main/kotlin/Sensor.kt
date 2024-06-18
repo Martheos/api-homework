@@ -24,8 +24,8 @@ class Sensor(private val chan: Channel<Measurement>) {
     }
 
     private fun takeMeasurement(): Measurement {
-        val ms = Measurement(System.currentTimeMillis(), Random.nextDouble(0.0, 100.0))
-        println(ms)
-        return ms
+        val measure = Measurement(System.currentTimeMillis(), Random.nextDouble(0.0, 100.0))
+        println(measure)
+        return measure
     }
 }
