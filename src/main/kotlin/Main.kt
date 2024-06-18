@@ -18,15 +18,9 @@ data class StationRequest(val id: Int, val address: String)
 data class MeasurementQuery(val id: Int, val start: Long? = null, val end: Long? = null)
 
 fun main() {
-    StationService.addStation(MeasuringStation(1, "test"))
-    println(StationService.getStation(1))
     embeddedServer(Netty, port = 8080){
         install(ContentNegotiation){
-            json(
-                Json {
-                    prettyPrint = true
-                    isLenient = true
-                })
+            json()
         }
         configureRouting()
     }.start(wait = true)
@@ -48,7 +42,7 @@ fun Application.configureRouting() {
                 if (id != null) {
                     val station = StationService.getStation(id)
                     if (station != null) {
-                        call.respond(station.toDTO())
+                        call.respond(station)
                     } else {
                         call.respond(HttpStatusCode.NotFound)
                     }
