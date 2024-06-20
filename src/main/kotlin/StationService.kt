@@ -1,5 +1,7 @@
 package org.example
 
+import kotlinx.serialization.json.Json
+
 
 object StationService {
     private val stations = mutableMapOf<Int, MeasuringStation>()
@@ -33,11 +35,11 @@ object StationService {
     methode for Stations to commit their measurements
     stored in map<stationId, List<Measurement> for ease of access
      */
-    fun addMeasurement(stationId: Int, measurement: Measurement) {
+    fun addMeasurement(stationId: Int, measurement: String) {
         if (measurements.contains(stationId))
-            measurements[stationId]?.add(measurement)
+            measurements[stationId]?.add(Json.decodeFromString(measurement))
         else
-            measurements[stationId] = mutableListOf(measurement)
+            measurements[stationId] = mutableListOf(Json.decodeFromString(measurement))
     }
 
     /*

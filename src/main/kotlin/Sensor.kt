@@ -3,7 +3,10 @@ package org.example
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import java.util.*
+import javax.xml.crypto.Data
 import kotlin.concurrent.scheduleAtFixedRate
 import kotlin.random.Random
 
@@ -13,7 +16,7 @@ data class Measurement(
     val ts: Long,
     val value: Double
 )
-class Sensor(private val chan: Channel<Measurement>) {
+class Sensor(private val chan: Channel<String>) {
     private val timer = Timer()
 
     /*

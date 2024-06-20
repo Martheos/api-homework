@@ -3,6 +3,7 @@ package org.example
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.Json
 
 @Serializable
 data class MeasuringStationDto(val id: Int, val address: String, val sensorCount: Int)
@@ -13,8 +14,7 @@ class MeasuringStation(
     private val address: String,
 ) {
     private val sensors: List<Sensor> = emptyList<Sensor>().toMutableList()
-    private val chan = Channel<Measurement>()
-
+    private val chan = Channel<String>()
     /*
     constructor that launches a coroutine to permanently pull measurements,
     as soon, as new ones were piped into the provided channel
