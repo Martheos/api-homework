@@ -6,7 +6,6 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import java.util.*
-import javax.xml.crypto.Data
 import kotlin.concurrent.scheduleAtFixedRate
 import kotlin.random.Random
 
@@ -28,7 +27,8 @@ class Sensor(private val chan: Channel<String>) {
     init {
         timer.scheduleAtFixedRate(0, 60000) {
             runBlocking {
-                chan.send(takeMeasurement())
+                // In a production setting, you would probably rather use something like a MQTT Client or CoAP to send transmit the data of a Sensor to a Measuring Station
+                chan.send(Json.encodeToString(takeMeasurement()))
             }
         }
     }

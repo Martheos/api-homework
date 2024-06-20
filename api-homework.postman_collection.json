@@ -1,0 +1,79 @@
+{
+	"info": {
+		"_postman_id": "722b07f7-9e31-4796-a9eb-d5106d099d83",
+		"name": "api-homework",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "30145015"
+	},
+	"item": [
+		{
+			"name": "Measurements of Station 1",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 1,\n    \"start\",\n    \"end\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/stations/measurements"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Station 1 Information",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/stations/1"
+			},
+			"response": []
+		},
+		{
+			"name": "Create Station 1",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 1,\n    \"address\": \"Musterstadt\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:8080/stations"
+			},
+			"response": []
+		},
+		{
+			"name": "Station 1 add Sensor",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": "localhost:8080/stations/1/sensor"
+			},
+			"response": []
+		}
+	]
+}
